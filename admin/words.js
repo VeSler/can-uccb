@@ -14,6 +14,18 @@ systemDictionary = {
         "pl": "Ustawienia adaptera dla can-uccb",
         "zh-cn": "can-uccb的适配器设置"
     },
+    "uart_list": {
+        "en": "uart_list",
+        "de": "uart_list",
+        "ru": "uart_list",
+        "pt": "uart_list",
+        "nl": "uart_list",
+        "fr": "uart_list",
+        "it": "uart_list",
+        "es": "uart_list",
+        "pl": "uart_list",
+        "zh-cn": "uart_list"
+    },
     "option1": {
         "en": "option1",
         "de": "Option 1",

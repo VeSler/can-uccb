@@ -1,7 +1,7 @@
 {
     "common": {
         "name": "can-uccb",
-        "version": "0.0.1",
+        "version": "0.0.2",
         "news": {
             "0.0.1": {
                 "en": "initial release",
@@ -82,8 +82,7 @@
             "fa-icon": "info"
         },
         "supportCustoms": true,
-        "dependencies": [
-            {
+        "dependencies": [{
                 "js-controller": ">=1.4.2"
             },
             "vis"
@@ -94,8 +93,7 @@
         "option2": "42"
     },
     "objects": [],
-    "instanceObjects": [
-        {
+    "instanceObjects": [{
             "_id": "info",
             "type": "channel",
             "common": {
