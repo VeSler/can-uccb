@@ -1,0 +1,120 @@
+{
+    "common": {
+        "name": "can-uccb",
+        "version": "0.0.1",
+        "news": {
+            "0.0.1": {
+                "en": "initial release",
+                "de": "Erstveröffentlichung",
+                "ru": "Начальная версия",
+                "pt": "lançamento inicial",
+                "nl": "Eerste uitgave",
+                "fr": "Première version",
+                "it": "Versione iniziale",
+                "es": "Versión inicial",
+                "pl": "Pierwsze wydanie",
+                "zh-cn": "首次出版"
+            }
+        },
+        "title": "CAN-uccb",
+        "titleLang": {
+            "en": "CAN-uccb",
+            "de": "CAN-UCB",
+            "ru": "CAN-uccb",
+            "pt": "CAN-uccb",
+            "nl": "CAN-uccb",
+            "fr": "CAN-uccb",
+            "it": "CAN-uccb",
+            "es": "CAN-uccb",
+            "pl": "CAN-uccb",
+            "zh-cn": "CAN-uccb"
+        },
+        "desc": {
+            "en": "CAN-uccb",
+            "de": "CAN-UCB",
+            "ru": "CAN-uccb",
+            "pt": "CAN-uccb",
+            "nl": "CAN-uccb",
+            "fr": "CAN-uccb",
+            "it": "CAN-uccb",
+            "es": "CAN-uccb",
+            "pl": "CAN-uccb",
+            "zh-cn": "CAN-uccb"
+        },
+        "authors": [
+            "VeSler <shmorgun.vitaliy@gmail.com>"
+        ],
+        "keywords": [
+            "CAN"
+        ],
+        "license": "MIT",
+        "platform": "Javascript/Node.js",
+        "main": "main.js",
+        "icon": "can-uccb.png",
+        "enabled": true,
+        "extIcon": "https://raw.githubusercontent.com/VeSler/ioBroker.can-uccb/master/admin/can-uccb.png",
+        "readme": "https://github.com/VeSler/ioBroker.can-uccb/blob/master/README.md",
+        "loglevel": "info",
+        "restartAdapters": [
+            "vis"
+        ],
+        "localLink": "%web_protocol%://%ip%:%web_port%/vis/edit.html",
+        "mode": "daemon",
+        "type": "hardware",
+        "compact": true,
+        "materialize": true,
+        "materializeTab": true,
+        "adminTab": {
+            "singleton": true,
+            "name": {
+                "en": "CAN-uccb",
+                "de": "CAN-UCB",
+                "ru": "CAN-uccb",
+                "pt": "CAN-uccb",
+                "nl": "CAN-uccb",
+                "fr": "CAN-uccb",
+                "it": "CAN-uccb",
+                "es": "CAN-uccb",
+                "pl": "CAN-uccb",
+                "zh-cn": "CAN-uccb"
+            },
+            "link": "",
+            "fa-icon": "info"
+        },
+        "supportCustoms": true,
+        "dependencies": [
+            {
+                "js-controller": ">=1.4.2"
+            },
+            "vis"
+        ]
+    },
+    "native": {
+        "option1": true,
+        "option2": "42"
+    },
+    "objects": [],
+    "instanceObjects": [
+        {
+            "_id": "info",
+            "type": "channel",
+            "common": {
+                "name": "Information"
+            },
+            "native": {}
+        },
+        {
+            "_id": "info.connection",
+            "type": "state",
+            "common": {
+                "role": "indicator.connected",
+                "name": "Device or service connected",
+                "type": "boolean",
+                "read": true,
+                "write": false,
+                "def": false
+            },
+            "native": {}
+        }
+    ]
+}
