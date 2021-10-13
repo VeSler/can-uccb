@@ -71,11 +71,15 @@
 
         <!-- Put your content here -->
         <div class="row">
-            <div class="col s2 input-field">
-                <label for="uart_list" class="translate">uart_list</label>
-                <select id="uart_list">
-                    <option disebled>номер порта</option>
-                </select>
+            <div class="input-field input-group col s12 m6 l4">
+                <input id="port" type="text" class="value validate" />
+                <label for="port" class="translate">COM port name</label>
+                <span class="suffix">
+                    <a id="selector" class='dropdown-trigger btn' href='#' data-target='ports'><i class="material-icons">arrow_drop_down</i></a>
+                    <!-- Dropdown Structure -->
+                    <ul id='ports' class='dropdown-content'>
+                    </ul>
+                </span>
             </div>
         </div>
         <!-- For example columns with settings: -->
