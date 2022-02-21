@@ -1,3 +1,7 @@
+https://ucandevices.github.io/
+https://github.com/UsbCANConverter-UCCbasic/UCCBPCB
+
+
 ## Changelog
 
 ### 0.0.1

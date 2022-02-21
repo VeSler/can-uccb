@@ -1,4 +1,15 @@
 "use strict";
+/**
+ * NOTES
+ * 
+ *   var logDiv = $( "#log_out" );
+ *   var msgs = [
+ *   "button = " + $( this ).index(),
+ *   "event.data.value = " + event.data.value
+ *   ];
+ *   logDiv.append( msgs.join( ", " ) + "<br>" );
+ * 
+ */
 
 /*
  * Created with @iobroker/create-adapter v1.26.3
@@ -7,6 +18,7 @@
 // The adapter-core module gives you access to the core ioBroker functions
 // you need to create an adapter
 const utils = require("@iobroker/adapter-core");
+const { stringify } = require("querystring");
 const SerialPort = require('serialport'); //.SerialPort
 //const SerialPort = require('@serialport/stream');
 
@@ -15,6 +27,10 @@ const SerialPort = require('serialport'); //.SerialPort
 // const fs = require("fs");
 
 class CanUccb extends utils.Adapter {
+
+    portName; // 
+    sp; // new SerialPort(this.portName, { baudRate: 115200, autoOpen: true });
+
 
     /**
      * @param {Partial<utils.AdapterOptions>} [options={}]
@@ -27,8 +43,12 @@ class CanUccb extends utils.Adapter {
         this.on("ready", this.onReady.bind(this));
         this.on("stateChange", this.onStateChange.bind(this));
         // this.on("objectChange", this.onObjectChange.bind(this));
-        // this.on("message", this.onMessage.bind(this));
+        this.on("message", this.onMessage.bind(this));
         this.on("unload", this.onUnload.bind(this));
+
+        this.portName = '/dev/ttyACM0';
+
+
     }
 
     /**
@@ -47,13 +67,8 @@ class CanUccb extends utils.Adapter {
 
 
         const portName = '/dev/ttyACM0';
-        const sp = new SerialPort(portName, { baudRate: 115200, autoOpen: true });
-
-        //const Readline = require('@serialport/parser-readline');
-        //const parser = new Readline()
-        //sp.pipe(parser)
-        //parser.on('data', console.log)
-        sp.write('S4\rL\rO\r')
+        this.sp = new SerialPort(this.portName, { baudRate: 115200, autoOpen: true });
+        this.sp.write('S4\rL\rO\r')
 
 
         /*
@@ -102,8 +117,12 @@ class CanUccb extends utils.Adapter {
         this.log.info("check group user admin group admin: " + result);
     }
 
+
+
+
     /**
      * Is called when adapter shuts down - callback has to be called under any circumstances!
+     * Вызывается при выключении адаптера - обратный вызов должен вызываться при любых обстоятельствах!
      * @param {() => void} callback
      */
     onUnload(callback) {
@@ -113,7 +132,7 @@ class CanUccb extends utils.Adapter {
             // clearTimeout(timeout2);
             // ...
             // clearInterval(interval1);
-
+            .close(callback ? : error => {}): void
             callback();
         } catch (e) {
             callback();
@@ -158,17 +177,17 @@ class CanUccb extends utils.Adapter {
     //  * Using this method requires "common.message" property to be set to true in io-package.json
     //  * @param {ioBroker.Message} obj
     //  */
-    // onMessage(obj) {
-    //     if (typeof obj === "object" && obj.message) {
-    //         if (obj.command === "send") {
-    //             // e.g. send email or pushover or whatever
-    //             this.log.info("send command");
+    onMessage(obj) {
+        if (typeof obj === "object" && obj.message) {
+            if (obj.command === "send") {
+                // e.g. send email or pushover or whatever
+                this.log.info("send command");
 
-    //             // Send response in callback if required
-    //             if (obj.callback) this.sendTo(obj.from, obj.command, "Message received", obj.callback);
-    //         }
-    //     }
-    // }
+                // Send response in callback if required
+                if (obj.callback) this.sendTo(obj.from, obj.command, "Message received", obj.callback);
+            }
+        }
+    }
 
 }
 
