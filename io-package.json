@@ -51,7 +51,7 @@
         "platform": "Javascript/Node.js",
         "main": "main.js",
         "icon": "can-uccb.png",
-        "enabled": true,
+        "enabled": false,
         "extIcon": "https://raw.githubusercontent.com/VeSler/ioBroker.can-uccb/master/admin/can-uccb.png",
         "readme": "https://github.com/VeSler/ioBroker.can-uccb/blob/master/README.md",
         "loglevel": "info",
