@@ -81,11 +81,12 @@ class CanUccb extends utils.Adapter {
 
         this.sp.on('data', function(data) {
             console.log('Data: ', data);
-            const pN = document.getElementById('#can_log_out');
-            if (pN) {
-                pN.innerText += '<br>';
-                pN.innerText += data;
-            };
+            /*            const pN = $('#can_log_out');
+                        if (pN) {
+                            pN.innerText += '<br>';
+                            pN.innerText += data;
+                        };
+            */
             //            $('#can_log_out').addText
         })
 
