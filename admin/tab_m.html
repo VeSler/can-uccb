@@ -11,21 +11,35 @@
     <script type="text/javascript" src="../../js/adapter-settings.js"></script>
     <script type="text/javascript" src="words.js"></script>
     <script>
-        $(document).ready(function() {
-            $("#canCMDbutton").click(function() {
-                var str = $("#canCMDinput").val();
-                console.log(str);
-                sendTo(null, 'runCMD', {
-                    cmd: str
-                }, function(response) {
-                    if (response.error) {
-                        console.error(response.error);
-                    } else {
-                        console.info("Ok");
-                    }
+        /*        $(document).ready(function() {
+                    $("#canCMDbutton").click(function() {
+                        var str = $("#canCMDinput").val();
+                        console.log(str);
+                        sendTo(null, 'runCMD', {
+                            cmd: str
+                        }, function(response) {
+                            if (response.error) {
+                                console.error(response.error);
+                            } else {
+                                console.info("Ok");
+                            }
+                        });
+                    })
                 });
-            })
-        });
+        */
+        let myFunction = function() {
+            var str = $("#canCMDinput").val();
+            console.log(str);
+            sendTo(null, 'runCMD', {
+                cmd: str
+            }, function(response) {
+                if (response.error) {
+                    console.error(response.error);
+                } else {
+                    console.info("Ok");
+                }
+            });
+        }
     </script>
     <style>
         .m .col .select-wrapper+label {
@@ -95,7 +109,7 @@
                 <label for="canCMD">Command for can-adapter</label>
             </div>
             <div class="input-field col s1">
-                <button id="canCMDbutton" class="MuiButtonBase-root-85 MuiButton-root-136 MuiButton-contained-144 MuiButton-containedPrimary-145" tabindex="0" type="button">
+                <button id="canCMDbutton" class="MuiButtonBase-root-85 MuiButton-root-136 MuiButton-contained-144 MuiButton-containedPrimary-145" tabindex="0" type="button" onclick="myFunction()">
                     <span class="MuiButton-label-137">
                         Выполнить команду
                     </span>
