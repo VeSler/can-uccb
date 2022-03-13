@@ -19,8 +19,7 @@
 // you need to create an adapter
 const utils = require("@iobroker/adapter-core");
 const { stringify } = require("querystring");
-const SerialPort = require('serialport'); //.SerialPort
-//const SerialPort = require('@serialport/stream');
+const { SerialPort } = require('serialport');
 
 
 // Load your modules here, e.g.:
@@ -41,6 +40,7 @@ class CanUccb extends utils.Adapter {
             name: "can-uccb",
         });
         this.on("ready", this.onReady.bind(this));
+        //this.on("newCanMessage", this.onNewCanMessage.bind(this));
         this.on("stateChange", this.onStateChange.bind(this));
         // this.on("objectChange", this.onObjectChange.bind(this));
         this.on("message", this.onMessage.bind(this));
@@ -50,6 +50,8 @@ class CanUccb extends utils.Adapter {
 
 
     }
+
+
 
     /**
      * Is called when databases are connected and adapter received configuration.
@@ -65,10 +67,27 @@ class CanUccb extends utils.Adapter {
         this.log.info("config option1: " + this.config.option1);
         this.log.info("config option2: " + this.config.option2);
 
+        this.sp = new SerialPort({ path: this.portName, baudRate: 115200, autoOpen: true }, function(err) {
+            if (err) {
+                return console.log('Error: ', err.message)
+            }
+        });
+        this.sp.write('S4\rL\rO\r');
+        this.sp.drain(function(err) {
+            if (err) {
+                console.log('ERROR: ', err.message);
+            }
+        });
 
-        const portName = '/dev/ttyACM0';
-        this.sp = new SerialPort(this.portName, { baudRate: 115200, autoOpen: true });
-        this.sp.write('S4\rL\rO\r')
+        this.sp.on('data', function(data) {
+            console.log('Data: ', data);
+            const pN = document.getElementById('#can_log_out');
+            if (pN) {
+                pN.innerText += '<br>';
+                pN.innerText += data;
+            };
+            //            $('#can_log_out').addText
+        })
 
 
         /*
@@ -133,6 +152,11 @@ class CanUccb extends utils.Adapter {
             // ...
             // clearInterval(interval1);
             //close(callback ? : error => {}): void
+            this.sp.close(function(error) {
+                if (error) {
+                    console.log("Error: ", error.message);
+                }
+            });
             callback();
         } catch (e) {
             callback();
@@ -198,6 +222,7 @@ class CanUccb extends utils.Adapter {
     }
 
 }
+
 
 // @ts-ignore parent is a valid property on module
 if (module.parent) {
