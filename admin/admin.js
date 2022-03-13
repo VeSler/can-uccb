@@ -34,6 +34,8 @@ function getUartList(onChange) {
     )
 }
 
+
+
 /*
 
 SerialPort.list().then(

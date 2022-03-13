@@ -10,6 +10,22 @@
     <script type="text/javascript" src="../../lib/js/materialize.js"></script>
 
     <script type="text/javascript" src="words.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("canCMDbutton").click(function() {
+                var str = $("canCMDinput").val();
+                sendTo(null, 'runCMD', {
+                    cmd: str
+                }, function(response) {
+                    if (response.error) {
+                        console.error(response.error);
+                    } else {
+                        console.info("Ok");
+                    }
+                });
+            })
+        });
+    </script>
     <style>
         .m .col .select-wrapper+label {
             top: -26px;
@@ -74,18 +90,13 @@
         </div>
         <div class="row">
             <div class="input-field col s6">
-                <input class="value" id="canCMD" type="text">
+                <input class="value" id="canCMDinput" type="text">
                 <label for="canCMD">Command for can-adapter</label>
             </div>
             <div class="input-field col s1">
-                <button class="MuiButtonBase-root-85 MuiButton-root-136 MuiButton-contained-144 MuiButton-containedPrimary-145" tabindex="0" type="button">
+                <button id="canCMDbutton" class="MuiButtonBase-root-85 MuiButton-root-136 MuiButton-contained-144 MuiButton-containedPrimary-145" tabindex="0" type="button">
                     <span class="MuiButton-label-137">
-                        <span class="MuiButton-startIcon-158 MuiButton-iconSizeMedium-161">
-                            <svg class="MuiSvgIcon-root-86" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
-                                <path d="M19 12v7H5v-7H3v7c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-7h-2zm-6 .67l2.59-2.58L17 11.5l-5 5-5-5 1.41-1.41L11 12.67V3h2z"></path>
-                            </svg>
-                        </span>
-                        Скачать журнал
+                        Выполнить команду
                     </span>
                     <span class="MuiTouchRipple-root-181"></span>
                 </button>

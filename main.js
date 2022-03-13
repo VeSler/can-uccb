@@ -132,7 +132,7 @@ class CanUccb extends utils.Adapter {
             // clearTimeout(timeout2);
             // ...
             // clearInterval(interval1);
-            .close(callback ? : error => {}): void
+            //close(callback ? : error => {}): void
             callback();
         } catch (e) {
             callback();
@@ -185,6 +185,14 @@ class CanUccb extends utils.Adapter {
 
                 // Send response in callback if required
                 if (obj.callback) this.sendTo(obj.from, obj.command, "Message received", obj.callback);
+            }
+            if (obj.command === "runCMD") {
+                // отправить команду в uart
+                this.log.info("run command")
+                if (obj.cmd) {
+                    //this.sp.write(obj.cmd);
+                    return this.sendTo(obj.from, obj.command, { mes: 'cmd run' }, obj.callback);;
+                }
             }
         }
     }
