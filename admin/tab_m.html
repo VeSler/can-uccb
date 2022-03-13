@@ -12,8 +12,8 @@
     <script type="text/javascript" src="words.js"></script>
     <script>
         $(document).ready(function() {
-            $("canCMDbutton").click(function() {
-                var str = $("canCMDinput").val();
+            $("#canCMDbutton").click(function() {
+                var str = $("#canCMDinput").val();
                 sendTo(null, 'runCMD', {
                     cmd: str
                 }, function(response) {
