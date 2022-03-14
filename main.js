@@ -69,13 +69,15 @@ class CanUccb extends utils.Adapter {
 
         SerialPort.list()
             .then((val) => {
-                this.log.info(val);
+                this.log.info(JSON.stringify(val));
                 //                console.info(val);
             })
 
         this.sp = new SerialPort({ path: this.portName, baudRate: 115200, autoOpen: true }, function(err) {
             if (err) {
                 return console.log('Error: ', err.message)
+            } else {
+
             }
         });
         //this.sp.write('S4\rL\rO\r');
@@ -86,6 +88,14 @@ class CanUccb extends utils.Adapter {
                 console.log('ERROR: ', err.message);
             }
         });
+
+        this.sp.on('open', function() {
+            this.log.info('SerialPort is opened');
+        })
+
+        this.sp.on('error', function(err) {
+            this.log.info('ERROR: ' + err);
+        })
 
         this.sp.on('data', function(data) {
             console.log("CAN Message: " + data);
