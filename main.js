@@ -67,6 +67,8 @@ class CanUccb extends utils.Adapter {
         this.log.info("config option1: " + this.config.option1);
         this.log.info("config option2: " + this.config.option2);
 
+        SerialPort.list
+
         this.sp = new SerialPort({ path: this.portName, baudRate: 115200, autoOpen: true }, function(err) {
             if (err) {
                 return console.log('Error: ', err.message)
@@ -80,13 +82,13 @@ class CanUccb extends utils.Adapter {
         });
 
         this.sp.on('data', function(data) {
-            console.log('Data: ', data);
-            /*            const pN = $('#can_log_out');
-                        if (pN) {
-                            pN.innerText += '<br>';
-                            pN.innerText += data;
-                        };
-            */
+            console.log("CAN Message: " + data);
+            const pN = $('#can_log_out');
+            if (pN) {
+                pN.innerText += '<br>';
+                pN.innerText += data;
+            };
+
             //            $('#can_log_out').addText
         })
 
@@ -153,6 +155,8 @@ class CanUccb extends utils.Adapter {
             // ...
             // clearInterval(interval1);
             //close(callback ? : error => {}): void
+            this.sp.write('C');
+            this.sp.drain();
             this.sp.close(function(error) {
                 if (error) {
                     console.log("Error: ", error.message);
