@@ -69,7 +69,8 @@ class CanUccb extends utils.Adapter {
 
         SerialPort.list()
             .then((val) => {
-                console.info(val);
+                this.log.info(val);
+                //                console.info(val);
             })
 
         this.sp = new SerialPort({ path: this.portName, baudRate: 115200, autoOpen: true }, function(err) {
@@ -81,6 +82,7 @@ class CanUccb extends utils.Adapter {
         this.sp.write('C');
         this.sp.drain(function(err) {
             if (err) {
+
                 console.log('ERROR: ', err.message);
             }
         });
