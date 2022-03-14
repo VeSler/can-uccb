@@ -215,7 +215,7 @@ class CanUccb extends utils.Adapter {
                 // отправить команду в uart
                 this.log.info("run command")
                 if (obj.cmd) {
-                    //this.sp.write(obj.cmd);
+                    this.sp.write(obj.cmd);
                     return this.sendTo(obj.from, obj.command, { mes: 'cmd run' }, obj.callback);;
                 }
             }
