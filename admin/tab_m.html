@@ -12,25 +12,26 @@
     <script type="text/javascript" src="words.js"></script>
     <script>
         /*        $(document).ready(function() {
-                                    $("#canCMDbutton").click(function() {
-                                        var str = $("#canCMDinput").val();
-                                        console.log(str);
-                                        sendTo(null, 'runCMD', {
-                                            cmd: str
-                                        }, function(response) {
-                                            if (response.error) {
-                                                console.error(response.error);
-                                            } else {
-                                                console.info("Ok");
-                                            }
-                                        });
-                                    })
-                                });
-                        */
+                                                    $("#canCMDbutton").click(function() {
+                                                        var str = $("#canCMDinput").val();
+                                                        console.log(str);
+                                                        sendTo(null, 'runCMD', {
+                                                            cmd: str
+                                                        }, function(response) {
+                                                            if (response.error) {
+                                                                console.error(response.error);
+                                                            } else {
+                                                                console.info("Ok");
+                                                            }
+                                                        });
+                                                    })
+                                                });
+                                        */
         let myFunction = function() {
             var str = $("#canCMDinput").val();
             console.log(str);
-            sendTo(null, 'runCMD', {
+
+            sendTo('can-uccb.0', 'runCMD', {
                 cmd: str
             }, function(response) {
                 if (response.error) {
