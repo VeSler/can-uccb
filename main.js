@@ -73,32 +73,32 @@ class CanUccb extends utils.Adapter {
                 //                console.info(val);
             })
 
-        this.sp = new SerialPort({ path: this.portName, baudRate: 115200, autoOpen: true }, function(err) {
+        this.sp = new SerialPort({ path: this.portName, baudRate: 115200, autoOpen: true }, (err) => {
             if (err) {
-                return console.log('Error: ', err.message)
+                this.log.error('Error: ' + err.message)
             } else {
 
             }
         });
         //this.sp.write('S4\rL\rO\r');
         this.sp.write('C');
-        this.sp.drain(function(err) {
+        this.sp.drain((err) => {
             if (err) {
 
-                console.log('ERROR: ', err.message);
+                this.log.info('ERROR: ' + err.message);
             }
         });
 
-        this.sp.on('open', function() {
+        this.sp.on('open', () => {
             this.log.info('SerialPort is opened');
         })
 
-        this.sp.on('error', function(err) {
+        this.sp.on('error', (err) => {
             this.log.info('ERROR: ' + err);
         })
 
-        this.sp.on('data', function(data) {
-            console.log("CAN Message: " + data);
+        this.sp.on('data', (data) => {
+            this.log.info("CAN Message: " + data);
             /*
             const pN = $('#can_log_out');
             if (pN) {
