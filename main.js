@@ -81,7 +81,7 @@ class CanUccb extends utils.Adapter {
             }
         });
         //this.sp.write('S4\rL\rO\r');
-        this.sp.write('C');
+        //this.sp.write('C');
         this.sp.drain((err) => {
             if (err) {
 
@@ -95,6 +95,10 @@ class CanUccb extends utils.Adapter {
 
         this.sp.on('error', (err) => {
             this.log.info('ERROR: ' + err);
+        })
+
+        this.sp.on('close', () => {
+            this.log.info('SerialPort is closed');
         })
 
         this.sp.on('data', (data) => {
@@ -174,9 +178,9 @@ class CanUccb extends utils.Adapter {
             //close(callback ? : error => {}): void
             this.sp.write('C');
             this.sp.drain();
-            this.sp.close(function(error) {
+            this.sp.close((error) => {
                 if (error) {
-                    console.log("Error: ", error.message);
+                    this.log.error("Error: " + error.message);
                 }
             });
             callback();
@@ -225,6 +229,7 @@ class CanUccb extends utils.Adapter {
     //  */
     onMessage(obj) {
         if (typeof obj === "object" && obj.message) {
+            this.log.debug("Received command: " + obj.command);
             if (obj.command === "send") {
                 // e.g. send email or pushover or whatever
                 this.log.info("send command");
@@ -236,8 +241,15 @@ class CanUccb extends utils.Adapter {
                 // отправить команду в uart
                 this.log.info("run command")
                 if (obj.cmd) {
-                    this.sp.write(obj.cmd);
-                    return this.sendTo(obj.from, obj.command, { mes: 'cmd run' }, obj.callback);;
+                    this.sp.write(obj.cmd, (err, mess) => {
+                        if (err) {
+                            this.log.error("ERROR: " + err);
+                        }
+                        if (mess) {
+                            this.log.info("Command return: " + mess);
+                        }
+                        this.log.info("Command #" + obj.cmd + "# running");
+                    });
                 }
             }
         }
